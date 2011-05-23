@@ -38,5 +38,16 @@ describe('Zebrafy', function () {
         expect(table).toBeZebrafyied();
     });
 
+    it('should zebrify more than one table', function() {
+        $('<table id="zebra-table-2" class="zebra"></table>').appendTo('body');
+        for (var i=0; i < 10; i++) {
+            $('<tr></tr>').append('<td></td>').append('<td></td>').append('<td></td>').appendTo('#zebra-table-2');
+        };
+
+        $('.table').zebrafy();
+        expect($("#zebra-table")).toBeZebrafyied();
+        expect($("#zebra-table-2")).toBeZebrafyied();
+    });
+
 });
 
