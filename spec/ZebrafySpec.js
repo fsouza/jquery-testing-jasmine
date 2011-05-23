@@ -1,21 +1,25 @@
 describe('Zebrafy', function () {
 
+    var isTableZebrafyied = function(table) {
+        var isZebrafyied = true;
+
+        table.find("tr:even").each(function (index, tr) {
+            isZebrafyied = $(tr).hasClass('zebrafy-odd') === false;
+            isZebrafyied = $(tr).hasClass('zebrafy-even');
+        });
+
+        table.find("tr:odd").each(function (index, tr) {
+            isZebrafyied = $(tr).hasClass('zebrafy-odd');
+            isZebrafyied = $(tr).hasClass('zebrafy-even') === false;
+        });
+
+        return isZebrafyied;
+    };
+
     beforeEach(function () {
         this.addMatchers({
             toBeZebrafyied: function() {
-                var isZebrafyied = true;
-
-                this.actual.find("tr:even").each(function (index, tr) {
-                    isZebrafyied = $(tr).hasClass('zebrafy-odd') === false;
-                    isZebrafyied = $(tr).hasClass('zebrafy-even');
-                });
-
-                this.actual.find("tr:odd").each(function (index, tr) {
-                    isZebrafyied = $(tr).hasClass('zebrafy-odd');
-                    isZebrafyied = $(tr).hasClass('zebrafy-even') === false;
-                });
-
-                return isZebrafyied;
+                return isTableZebrafyied(this.actual)
             }
         });
     });
