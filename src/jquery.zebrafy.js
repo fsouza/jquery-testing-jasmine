@@ -1,6 +1,8 @@
 (function ($) {
     $.fn.zebrafy = function () {
-        this.find("tr:even").addClass("zebrafy-even");
-        this.find("tr:odd").addClass("zebrafy-odd");
+        return this.each(function (index, table) {
+            $(table).find("tr:even").addClass("zebrafy-even");
+            $(table).find("tr:odd").addClass("zebrafy-odd");
+        });
     };
 })(jQuery);

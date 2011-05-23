@@ -65,4 +65,10 @@ describe('Zebrafy', function () {
         expect($("#zebra-table-2")).toBeNotZebrafyied();
     });
 
+    it('zebrafy should be chainable', function() {
+        var table = $("#zebra-table");
+        table.zebrafy().addClass('black-bg')
+        expect(table.hasClass('black-bg')).toBeTruthy();
+    });
+
 });
