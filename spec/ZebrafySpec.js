@@ -4,13 +4,17 @@ describe('Zebrafy', function () {
         var isZebrafyied = true;
 
         table.find("tr:even").each(function (index, tr) {
-            isZebrafyied = $(tr).hasClass('zebrafy-odd') === false;
-            isZebrafyied = $(tr).hasClass('zebrafy-even');
+            isZebrafyied = $(tr).hasClass('zebrafy-odd') === false && $(tr).hasClass('zebrafy-even');
+            if (!isZebrafyied) {
+                return;
+            };
         });
 
         table.find("tr:odd").each(function (index, tr) {
-            isZebrafyied = $(tr).hasClass('zebrafy-odd');
-            isZebrafyied = $(tr).hasClass('zebrafy-even') === false;
+            isZebrafyied = $(tr).hasClass('zebrafy-odd') && $(tr).hasClass('zebrafy-even') === false;
+            if (!isZebrafyied) {
+                return;
+            };
         });
 
         return isZebrafyied;
@@ -19,16 +23,23 @@ describe('Zebrafy', function () {
     beforeEach(function () {
         this.addMatchers({
             toBeZebrafyied: function() {
-                return isTableZebrafyied(this.actual)
+                return isTableZebrafyied(this.actual);
+            },
+            toBeNotZebrafyied: function() {
+                return !isTableZebrafyied(this.actual);
             }
         });
     });
-
 
     beforeEach(function () {
         $('<table id="zebra-table" class="zebra"></table>').appendTo('body');
         for (var i=0; i < 10; i++) {
             $('<tr></tr>').append('<td></td>').append('<td></td>').append('<td></td>').appendTo('#zebra-table');
+        };
+
+        $('<table id="zebra-table-2" class="zebra"></table>').appendTo('body');
+        for (var i=0; i < 10; i++) {
+            $('<tr></tr>').append('<td></td>').append('<td></td>').append('<td></td>').appendTo('#zebra-table-2');
         };
     });
 
@@ -42,16 +53,16 @@ describe('Zebrafy', function () {
         expect(table).toBeZebrafyied();
     });
 
-    it('should zebrify more than one table', function() {
-        $('<table id="zebra-table-2" class="zebra"></table>').appendTo('body');
-        for (var i=0; i < 10; i++) {
-            $('<tr></tr>').append('<td></td>').append('<td></td>').append('<td></td>').appendTo('#zebra-table-2');
-        };
-
+    it('should zebrafy more than one table', function() {
         $('.table').zebrafy();
         expect($("#zebra-table")).toBeZebrafyied();
         expect($("#zebra-table-2")).toBeZebrafyied();
     });
 
-});
+    it('should zebrafy table and keep another "unzebrafyied"', function() {
+        $("#zebra-table").zebrafy();
+        expect($("#zebra-table")).toBeZebrafyied();
+        expect($("#zebra-table-2")).toBeNotZebrafyied();
+    });
 
+});
