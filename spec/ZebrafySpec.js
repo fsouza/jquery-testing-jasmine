@@ -54,7 +54,7 @@ describe('Zebrafy', function () {
     });
 
     it('should zebrafy more than one table', function() {
-        $('.table').zebrafy();
+        $('.zebra').zebrafy();
         expect($("#zebra-table")).toBeZebrafyied();
         expect($("#zebra-table-2")).toBeZebrafyied();
     });
