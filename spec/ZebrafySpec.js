@@ -15,13 +15,13 @@ describe('Zebrafy', function () {
         it('should apply classes zebrafy-odd and zebrafy-even to each other table lines', function () {
             jQuery("#zebra-table").zebrafy();
             jQuery("#zebra-table tr:even").each(function (index, tr) {
-                expect(tr.hasClass('odd')).toBeFalsy();
-                expect(tr.hasClass('even')).toBeTruthy();
+                expect($(tr).hasClass('zebrafy-odd')).toBeFalsy();
+                expect($(tr).hasClass('zebrafy-even')).toBeTruthy();
             });
 
             jQuery("#zebra-table tr:odd").each(function (index, tr) {
-                expect(tr.hasClass('odd')).toBeTruthy();
-                expect(tr.hasClass('even')).toBeFalsy();
+                expect($(tr).hasClass('zebrafy-odd')).toBeTruthy();
+                expect($(tr).hasClass('zebrafy-even')).toBeFalsy();
             });
         });
     });
