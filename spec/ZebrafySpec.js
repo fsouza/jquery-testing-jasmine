@@ -67,7 +67,7 @@ describe('Zebrafy', function () {
 
     it('zebrafy should be chainable', function() {
         var table = $("#zebra-table");
-        table.zebrafy().addClass('black-bg')
+        table.zebrafy().addClass('black-bg');
         expect(table.hasClass('black-bg')).toBeTruthy();
     });
 
